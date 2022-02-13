@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="../static/styles/style.css">
+        <link rel="stylesheet" href="{{url_for('static',filename='styles/style.css')}}?v=1.{{get_next_version()}}">
+
+        <!-- <script src="{{url_for('static',filename='js/jquery-3.5.0.min.js')}}"></script> -->
+        <script src="{{url_for('static',filename='js/phaser.js')}}"></script>
+
+        <title>GAME</title>
+
+        <body>
+            <div class="main_title">
+                LOGIC DESIGN GAME
+            </div>
+        
+            <div class="game_container">
+                <script src="{{url_for('static',filename='js/game.js')}}?v=1.{{get_next_version()}}"></script>
+                <script src="{{url_for('static',filename='js/game_config.js')}}?v=1.{{get_next_version()}}"></script>        
+            </div>
+
+        </body>
+    </head>
+</html>

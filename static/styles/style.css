@@ -1,0 +1,27 @@
+body {
+    margin:0;
+    background-color: #aaa;
+    font-family: 'VT323', monospace;
+    font-size: 2em;
+}
+
+canvas {
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+}
+
+.error_msg{
+    color:red
+}
+
+.main_title{
+    margin-top: 3vh;
+    text-align: center;
+    font-size: 3em;
+}
+
+.game_container{
+    margin-left: auto;
+    margin-right: auto;
+}
