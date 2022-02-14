@@ -25,6 +25,40 @@ function binary_add_one(bin_array){
     return new_arr
 }
 
+function binary_arr2str(bin_array){
+    return bin_array.toString().replaceAll(",","")
+}
+var num_bits = 8
+var text_input = null
+var OneComp = null
+var TwoComp = null
+
+
+function calc_bin_arrs(bin_array){
+    var in_binary_arr = [...bin_array]
+            
+    for(let i = 0; i < num_bits-bin_array.length; i++){
+        in_binary_arr.unshift('0')
+    }
+
+    Ones_Comp_Arr = [...in_binary_arr]
+
+    for(let i = 0; i < num_bits; i++){
+        if(Ones_Comp_Arr[i] == '1'){
+            Ones_Comp_Arr[i] = '0'
+        }else{
+            Ones_Comp_Arr[i] = '1'
+        }
+    }
+
+    Twos_Comp_Arr = binary_add_one(Ones_Comp_Arr)
+    
+    text_input.text = binary_arr2str(in_binary_arr)
+    OneComp.text = binary_arr2str(Ones_Comp_Arr)
+    TwoComp.text = binary_arr2str(Twos_Comp_Arr)
+}
+
+
 class gameworld extends Phaser.Scene{
     constructor(){
         super({key:"gameworld"});
@@ -33,6 +67,7 @@ class gameworld extends Phaser.Scene{
         // graphics = this.add.graphics()
         // context = this
         // // this.load.image('test_smile','assets/smile_test.png')
+       
         // Font from https://github.com/photonstorm/phaser-examples/tree/master/examples/assets/fonts/bitmapFonts
         this.load.bitmapFont('gem','assets/fonts/gem.png','assets/fonts/gem.xml')
     }
@@ -40,54 +75,35 @@ class gameworld extends Phaser.Scene{
     create(){
         this.add.text(10, 10, 'Enter your binary number:', {font: "32px", fill: '#ffffff' });
 
-        var textEntry = this.add.text(10, 50, '', {font: "32px", fill: '#ffff00' });
-        var OneComp = this.add.text(10, 150, '', {font: "32px", fill: '#ffff00' });
-        var TwoComp = this.add.text(10, 250, '', {font: "32px", fill: '#ffff00' });
+        text_input = this.add.text(10, 50, '', {font: "32px", fill: '#ffff00' });
+        OneComp = this.add.text(10, 150, '', {font: "32px", fill: '#ffff00' });
+        TwoComp = this.add.text(10, 250, '', {font: "32px", fill: '#ffff00' });
 
-        var binary = ""
         var binary_arr = []
-        var Twos_Comp_Arr = []
-        var num_bits = 8
-        var Ones_Comp_Arr = []
+
+        calc_bin_arrs(binary_arr)
+
         this.input.keyboard.on('keydown', function (event) {
     
-            if (event.keyCode === 8 && textEntry.text.length > 0)
+            if (event.keyCode === 8 && text_input.text.length > 0)
             {
-                textEntry.text = textEntry.text.substr(0, textEntry.text.length - 1);
+                text_input.text = text_input.text.substr(0, text_input.text.length - 1);
                 if(binary_arr.length > 0){
                     binary_arr.pop()
                 }
             }
-            else if(event.keyCode == 48 ||event.keyCode == 49){
+            else if(event.keyCode == 48 || event.keyCode == 49){
                 if(binary_arr.length < num_bits){
-                    binary_arr.push(event.key)
+                    if(binary_arr.length == 0 && event.keyCode == 48){
+                        // Do nothing
+                    }else{
+                        binary_arr.push(event.key)
+                    }
                 }
             }
+            calc_bin_arrs(binary_arr)
 
-            textEntry.text = binary_arr.toString().replaceAll(",","")
 
-            // binary = String(binary).padStart(num_bits, '0');
-
-            Ones_Comp_Arr = [...binary_arr]
-
-            for(var i = 0; i < num_bits-binary_arr.length; i++){
-                Ones_Comp_Arr.unshift('0')
-            }
-
-            for(var i = 0; i < num_bits; i++){
-                if(Ones_Comp_Arr[i] == '1'){
-                    Ones_Comp_Arr[i] = '0'
-                }else{
-                    Ones_Comp_Arr[i] = '1'
-                }
-            }
-
-            Twos_Comp_Arr = binary_add_one(Ones_Comp_Arr)
-            OneComp.text = Ones_Comp_Arr.toString().replaceAll(",","")
-            TwoComp.text = Twos_Comp_Arr.toString().replaceAll(",","")
-
-            // var Two_Comp_Str = Ones_Comp_Str
-            
         });
 
         this.add.text(10, 100, "1's Complement", {font: "32px", fill: '#ffffff' });
