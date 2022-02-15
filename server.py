@@ -20,10 +20,11 @@ PERMANENT_SESSION_LIFETIME = 1800
 debug_login_bypass = 1
 
 # Best if you don't do this with production code, but I am too lazy to not just put it here.
-# Really, don't expose your salt like this.
+# Really, don't expose your salt like this
 # If I was, like 10% less lazy I'd make this a GitHub secret.
 # But I'm not.
 sha_salt = "really_weak_and_exposed_secret_salt"
+#What is ShaSalt?
 
 
 
